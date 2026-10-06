@@ -159,11 +159,12 @@ https://example.com/article
 
 ## 仕組み
 
-```
- ┌──────────┐   Webhook    ┌──────────────────────┐   REST API   ┌──────────┐
- │   LINE   │ ───────────▶ │  Vercel Function     │ ───────────▶ │ Todoist  │
- │ (あなた) │ ◀─────────── │  api/webhook.js      │ ◀─────────── │  Inbox   │
- └──────────┘  返信(reply) └──────────────────────┘              └──────────┘
+```mermaid
+flowchart LR
+    LINE["LINE<br>（あなた）"] -- Webhook --> FN["Vercel Function<br>api/webhook.js"]
+    FN -- "返信（reply）" --> LINE
+    FN -- REST API --> TD["Todoist<br>Inbox"]
+    TD -- 結果 --> FN
 ```
 
 1. LINE公式アカウントに送ったメッセージが、Webhookで Vercel のサーバーレス関数（`api/webhook.js`）に届きます
