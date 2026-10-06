@@ -8,6 +8,10 @@ LINEに送るだけでTodoistのInboxにタスクが入る、個人用ボット�
 
 返信は標準語のほか、**博多弁にも対応しています**（`REPLY_STYLE=hakata`）。
 
+<p align="center">
+  <img src="assets/screenshot.jpg" width="360" alt="LINEで「明日、提案書を骨子6割で作ってメールで提出」と送ると、期日10/7のタスクとして登録され、キャンセル・今日・明日・p1などのボタンと、一覧・キャンセル・使い方のメニューが表示されている画面（博多弁モード）">
+</p>
+
 [English](#english)
 
 ---
