@@ -41,6 +41,25 @@ test("メモ prefix marks an item as a memo and is stripped from the title", () 
   assert.equal(toTodoistText(items[1]), "見積もり送る");
 });
 
+test("分解 and 分解しない prefixes leave a marker comment for whoever organises the Inbox", () => {
+  assert.deepEqual(parseMessage("分解：提案書を作る\n先方は来週月曜締切"), [
+    { title: "提案書を作る", note: "先方は来週月曜締切\n分解指定：する（LINEで指定）", memo: false, split: "force" },
+  ]);
+  assert.deepEqual(parseMessage("分解しない：引越し準備"), [
+    { title: "引越し準備", note: "分解指定：しない（LINEで指定）", memo: false, split: "never" },
+  ]);
+  const [memo] = parseMessage("メモ：分解：アイデア");
+  assert.equal(memo.memo, true);
+  assert.equal(memo.split, "force");
+  assert.equal(memo.title, "アイデア");
+});
+
+test("a task merely mentioning 分解 is left alone", () => {
+  assert.deepEqual(parseMessage("エンジンを分解して掃除する"), [
+    { title: "エンジンを分解して掃除する", note: "", memo: false },
+  ]);
+});
+
 test("caps the number of items per message", () => {
   const text = Array.from({ length: 20 }, (_, i) => `・タスク${i}`).join("\n");
   assert.equal(parseMessage(text).length, MAX_ITEMS);

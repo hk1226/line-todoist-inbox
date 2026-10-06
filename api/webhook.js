@@ -50,7 +50,7 @@ async function addItems(items, token) {
     try {
       const task = await addTask({ text: toTodoistText(item), note: item.note }, token);
       created.push(task);
-      lines.push(`${NUMBERS[i]} ${item.memo ? "📝 " : ""}${item.title}${formatDue(task)}`);
+      lines.push(`${NUMBERS[i]} ${item.memo ? "📝 " : ""}${item.title}${formatDue(task)}${item.split ? messages().splitMarks[item.split] : ""}`);
     } catch (err) {
       console.error(err);
       failed += 1;

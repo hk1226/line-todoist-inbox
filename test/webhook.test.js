@@ -370,6 +370,13 @@ test("a single new task gets cancel, today, tomorrow, p1 and p2 quick replies th
   assert.equal(todoist.updates.at(-1).due_string, "today");
 });
 
+test("a 分解 prefix is stripped, noted on the task and shown in the reply", async () => {
+  await POST(lineRequest("分解：提案書を作る"));
+  const quick = todoistCalls().find((c) => c.url.endsWith("/tasks/quick"));
+  assert.deepEqual(quick.body, { text: "提案書を作る", note: "分解指定：する（LINEで指定）" });
+  assert.match(replies()[0], /① 提案書を作る（🔧分解指定）/);
+});
+
 test("several new tasks only get a cancel quick reply", async () => {
   await POST(lineRequest("・牛乳\n・卵"));
   assert.deepEqual(lineReplies()[0].quickReply.items.map((i) => i.action.label), ["↩️ キャンセル"]);
