@@ -167,7 +167,12 @@ export async function POST(request) {
     return new Response("invalid signature", { status: 401 });
   }
 
-  const { events = [] } = JSON.parse(rawBody);
+  let events;
+  try {
+    ({ events = [] } = JSON.parse(rawBody));
+  } catch {
+    return new Response("invalid body", { status: 400 });
+  }
   // Sequential so that photos and text in one delivery see each other's tasks in the Inbox.
   for (const event of events) await handleEvent(event, env);
 

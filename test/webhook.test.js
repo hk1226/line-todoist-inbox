@@ -169,6 +169,15 @@ test("an unknown REPLY_STYLE falls back to standard Japanese", async () => {
   assert.match(replies()[0], /追加しました/);
 });
 
+test("a correctly signed but malformed body is rejected without retries piling up", async () => {
+  const body = "{not json";
+  const res = await POST(
+    new Request("https://example.com/api/webhook", { method: "POST", headers: { "x-line-signature": sign(body) }, body }),
+  );
+  assert.equal(res.status, 400);
+  assert.equal(calls.length, 0);
+});
+
 test("rejects a request with a bad signature", async () => {
   const res = await POST(lineRequest("x", { signature: "bad" }));
   assert.equal(res.status, 401);
