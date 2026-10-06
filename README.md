@@ -6,6 +6,8 @@ LINEに送るだけでTodoistのInboxにタスクが入る、個人用ボット�
 
 思いついたことを、いつも開いているLINEのトークに送るだけ。振り分けやラベル付けはボットでは行わず、とにかく取りこぼさずInboxへ入れることに徹しています（整理はTodoist側で、または任意で[AIのルーティン](#aiと組み合わせる任意)に任せられます）。
 
+返信は標準語のほか、**博多弁にも対応しています**（`REPLY_STYLE=hakata`）。
+
 [English](#english)
 
 ---
@@ -27,7 +29,12 @@ LINEに送るだけでTodoistのInboxにタスクが入る、個人用ボット�
 
 ## 特徴
 
-以下の返信例は既定の標準語スタイル（`REPLY_STYLE=standard`）のものです。
+以下の返信例は既定の標準語スタイル（`REPLY_STYLE=standard`）のものです。`REPLY_STYLE=hakata` にすると、博多弁で返信します。
+
+```
+✅ 1件入れたばい
+① 見積もりを送る
+```
 
 ### 1件だけ送る
 
@@ -350,4 +357,4 @@ Optional: ready-to-paste prompts for organizing your Inbox with scheduled Claude
 
 ### License
 
-[MIT](LICENSE) © 2026 hk1226
+[MIT](LICENSE) © 2026 Kenji Hirashima
